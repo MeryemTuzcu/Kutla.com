@@ -15,8 +15,8 @@ Node.js Backend Programlama Eğitimi bitirme projesi kapsamında geliştirilmiş
 
 1. **Repoyu klonlayın:**
    ```bash
-   git clone https://github.com/<KULLANICI_ADI>/<REPO_ADI>.git
-   cd <REPO_ADI>
+   git clone https://github.com/MeryemTuzcu/Kutla.com.git
+   cd Kutla.com
    ```
 
 2. **Bağımlılıkları yükleyin:**
