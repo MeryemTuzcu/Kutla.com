@@ -76,5 +76,12 @@ src/
 Her isteğin konsola nasıl kaydedildiğini gösteren örnek terminal çıktısı için [`docs/logger.png`](./docs/logger.png) dosyasına bakın.
 
 ---
-📄 Tüm endpoint detayları, istek/cevap örnekleri ve hata kodları için [`API_DOCS.md`](./API_DOCS.md) dosyasına bakın.
-📸 Postman test ekran görüntüleri `docs/postman/` klasöründedir.
+## 📚 Teslim Dokümanları
+
+| Doküman | Dosya |
+|---------|-------|
+| Proje Tanıtım Dokümanı | [docs/PROJE_TANITIM.pdf](./docs/KutlaCom.pdf) |
+| API Dokümantasyonu | [API_DOCS.md](./API_DOCS.md) |
+| Postman Test Ekran Görüntüleri | [docs/postman/PostmanTestleri.pdf](./docs/postman/PostmanTestleri.pdf) |
+| Logger Kanıtı | [docs/logger.png](./docs/logger.png) |
+
