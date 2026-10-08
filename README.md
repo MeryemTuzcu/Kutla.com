@@ -72,9 +72,6 @@ src/
 * **İş kuralları:** 1000 TL altı bütçe (`422`), mekan kapasitesi aşımı (`422`), aynı mekana tekrar bekleyen talep (`409`), aynı mekan ve tarihe çift rezervasyon (`409`).
 * **Durum geçmişi:** Her talepte durumun ne zaman değiştiği `statusHistory` alanında tutulur.
 * **Global error handler:** Beklenmeyen hatalarda `500 Internal Server Error`.
-## 📝 Logger Kanıtı
-Her isteğin konsola nasıl kaydedildiğini gösteren örnek terminal çıktısı için [`docs/logger.png`](./docs/logger.png) dosyasına bakın.
-
 ---
 ## 📚 Teslim Dokümanları
 
