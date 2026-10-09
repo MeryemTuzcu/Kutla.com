@@ -139,10 +139,6 @@ Geçersiz `status`, `priority`, `sort` veya `page/limit` için `400` döner.
 Müşteri adı, mekan adı, durum veya önceliğe göre arama yapar (büyük/küçük harf duyarsız). `page` ve `limit` da desteklenir. `keyword` yoksa `400` döner.
 **Örnek:** `GET /tasks/search?keyword=arya` → `200 OK`, `{ "total": 1, "data": [ ... ] }`
 
-### `GET /tasks/search?keyword=`
-Müşteri adı, mekan adı, durum veya önceliğe göre arama yapar (büyük/küçük harf duyarsız). `page` ve `limit` da desteklenir. `keyword` gönderilmezse `400` döner.
-
-**Örnek:** `GET /tasks/search?keyword=arya`
 
 **200 OK**
 ```json
