@@ -12,7 +12,7 @@ Node.js Backend Programlama Eğitimi bitirme projesi kapsamında geliştirilmiş
 * REST API Mimarisi (veriler bellekte tutulur, veritabanı kullanılmaz)
 
 ## ⚙️ Kurulum ve Çalıştırma
-
+> **Gereksinim:** Node.js 18 veya üzeri (Express 5 için gereklidir).
 1. **Repoyu klonlayın:**
    ```bash
    git clone https://github.com/MeryemTuzcu/Kutla.com.git
@@ -34,6 +34,8 @@ Node.js Backend Programlama Eğitimi bitirme projesi kapsamında geliştirilmiş
 
 4. **Test edin:** Tarayıcıdan veya Postman'den `http://localhost:3000/` adresine istek atın.
 
+5. **Otomatik testler (isteğe bağlı):** `npm test` komutu 30 testi çalıştırır.
+
 > Not: Veriler bellekte tutulduğu için sunucu yeniden başlatıldığında başlangıç verilerine dönülür.
 
 ## 📁 Proje Yapısı
@@ -45,7 +47,10 @@ src/
 ├── controllers/           # İş mantığı
 ├── middlewares/           # logger.js, validator.js
 ├── data/database.js       # Bellek içi veri ve sabitler
-└── utils/                 # Yardımcı fonksiyonlar (sayfalama, hata yanıtı, metin karşılaştırma)
+└── utils/                 # Sayfalama, hata yanıtı, metin karşılaştırma, id/sayı çözümleme
+test/
+└── api.test.js            # Otomatik API testleri (npm test)
+docs/                      # Proje tanıtım PDF'i, Postman test PDF'i, logger kanıtı
 ```
 
 ## 🔌 Endpoint Özeti
@@ -71,13 +76,14 @@ src/
 * **Doğrulama:** Eksik veya hatalı veri için açıklayıcı mesajlarla `400 Bad Request`.
 * **İş kuralları:** 1000 TL altı bütçe (`422`), mekan kapasitesi aşımı (`422`), aynı mekana tekrar bekleyen talep (`409`), aynı mekan ve tarihe çift rezervasyon (`409`).
 * **Durum geçmişi:** Her talepte durumun ne zaman değiştiği `statusHistory` alanında tutulur.
+* **Dayanıklılık:** 10 KB gövde sınırı (`413`), isim uzunluk sınırı, değiştirilemez alanların açıkça reddi, `X-Powered-By` başlığı kapalı.
 * **Global error handler:** Beklenmeyen hatalarda `500 Internal Server Error`.
 ---
 ## 📚 Teslim Dokümanları
 
 | Doküman | Dosya |
 |---------|-------|
-| Proje Tanıtım Dokümanı | [docs/PROJE_TANITIM.pdf](./docs/KutlaCom.pdf) |
+| Proje Tanıtım Dokümanı | [docs/KutlaCom.pdf](./docs/KutlaCom.pdf) |
 | API Dokümantasyonu | [API_DOCS.md](./API_DOCS.md) |
 | Postman Test Ekran Görüntüleri | [docs/postman/PostmanTestleri.pdf](./docs/postman/PostmanTestleri.pdf) |
 | Logger Kanıtı | [docs/logger.png](./docs/logger.png) |

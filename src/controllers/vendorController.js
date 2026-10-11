@@ -2,6 +2,7 @@ const { vendors } = require('../data/database');
 const { sendError } = require('../utils/respond');
 const { sameText } = require('../utils/text');
 const { paginate } = require('../utils/paginate');
+const { parseId, parseNumber } = require('../utils/parse');
 
 // GET /vendors?category=&district=&maxBudget=&minCapacity=&page=&limit=
 const getVendors = (req, res) => {
@@ -12,13 +13,13 @@ const getVendors = (req, res) => {
     if (district) result = result.filter((v) => sameText(v.district, district));
 
     if (maxBudget !== undefined) {
-        const n = Number(maxBudget);
+        const n = parseNumber(maxBudget);
         if (!Number.isFinite(n)) return sendError(res, 400, "Bad Request", "maxBudget sayı olmalıdır.");
         result = result.filter((v) => v.price <= n);
     }
 
     if (minCapacity !== undefined) {
-        const n = Number(minCapacity);
+        const n = parseNumber(minCapacity);
         if (!Number.isFinite(n)) return sendError(res, 400, "Bad Request", "minCapacity sayı olmalıdır.");
         result = result.filter((v) => v.capacity >= n);
     }
@@ -30,8 +31,10 @@ const getVendors = (req, res) => {
 
 // GET /vendors/:id
 const getVendorById = (req, res) => {
-    const id = Number(req.params.id);
-    const vendor = Number.isInteger(id) ? vendors.find((v) => v.id === id) : null;
+    const id = parseId(req.params.id);
+    if (id === null) return sendError(res, 400, "Bad Request", "id tam sayı olmalıdır.");
+
+    const vendor = vendors.find((v) => v.id === id);
     if (!vendor) return sendError(res, 404, "Not Found", "Mekan bulunamadı.");
     res.status(200).json(vendor);
 };

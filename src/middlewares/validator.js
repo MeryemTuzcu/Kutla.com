@@ -19,7 +19,11 @@ const isValidDate = (s) => {
 // Alan bazlı tür/biçim kontrolleri. Hata varsa mesaj döner, yoksa null.
 const checkers = {
     vendorId: (v) => isPositiveInt(v) ? null : "vendorId pozitif bir tam sayı olmalıdır.",
-    customerName: (v) => (typeof v === 'string' && v.trim().length >= 2) ? null : "customerName en az 2 karakterlik bir metin olmalıdır.",
+    customerName: (v) => {
+        if (typeof v !== 'string' || v.trim().length < 2) return "customerName en az 2 karakterlik bir metin olmalıdır.";
+        if (v.trim().length > 100) return "customerName en fazla 100 karakter olabilir.";
+        return null;
+    },
     eventDate: (v) => {
         if (!isValidDate(v)) return "eventDate YYYY-AA-GG biçiminde geçerli bir tarih olmalıdır (örn. 2027-06-15).";
         if (v < todayTR()) return "eventDate geçmiş bir tarih olamaz.";
@@ -50,6 +54,7 @@ const validateCreateTask = (req, res, next) => {
 
 // PATCH /tasks/:id  (kısmi güncelleme: sadece gönderilen alanlar değişir)
 const PATCHABLE = ['status', 'priority', 'eventDate', 'guestCount', 'budget'];
+const IMMUTABLE = ['id', 'vendorId', 'customerName', 'createdAt'];
 
 const validatePatchTask = (req, res, next) => {
     const body = req.body || {};
@@ -57,6 +62,12 @@ const validatePatchTask = (req, res, next) => {
 
     if (!present.length) {
         return bad(res, `En az bir alan göndermelisiniz. Güncellenebilir alanlar: ${PATCHABLE.join(', ')}.`);
+    }
+
+    // Değiştirilemez alan, geçerli bir alanla birlikte gönderildiyse sessizce yok sayma, açıkça reddet
+    const locked = IMMUTABLE.filter((k) => body[k] !== undefined);
+    if (locked.length) {
+        return bad(res, `${locked.join(', ')} alan(ları) değiştirilemez. Güncellenebilir alanlar: ${PATCHABLE.join(', ')}.`);
     }
 
     const errors = present.map((k) => checkers[k](body[k])).filter(Boolean);

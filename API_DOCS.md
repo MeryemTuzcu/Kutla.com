@@ -4,6 +4,7 @@ Bu belge, Kutla.com API'sindeki tüm uç noktaların kullanımını, parametrele
 
 **Base URL:** `http://localhost:3000`
 **İçerik tipi:** `Content-Type: application/json`
+**İstek gövdesi sınırı:** 10 KB
 
 ## Genel Bilgiler
 
@@ -26,6 +27,11 @@ Bu belge, Kutla.com API'sindeki tüm uç noktaların kullanımını, parametrele
 }
 ```
 
+### Mekan (Vendor) Nesnesi
+```json
+{ "id": 1, "name": "Fındıksuyu Cam Bahçe", "category": "Düğün", "district": "Sarıyer", "capacity": 400, "price": 150000 }
+```
+
 ### Geçerli Değerler
 | Alan | Değerler |
 |------|----------|
@@ -43,6 +49,7 @@ Tüm hatalar aynı yapıdadır:
 | 400 | Bad Request | Eksik/geçersiz veri, geçersiz sorgu parametresi, bozuk JSON, değiştirilemez alanı güncelleme denemesi |
 | 404 | Not Found | Talep, mekan veya endpoint bulunamadı |
 | 409 | Conflict | Aynı mekana bekleyen talep var veya mekan o tarihte dolu |
+| 413 | Payload Too Large | İstek gövdesi 10 KB'ı aşıyor |
 | 422 | Unprocessable Entity | İş kuralı ihlali: bütçe 1000 TL altında, davetli sayısı kapasiteyi aşıyor |
 | 500 | Internal Server Error | Beklenmeyen sunucu hatası |
 
@@ -79,8 +86,7 @@ Mekanları listeler. Filtreleme ve sayfalama destekler.
 `total`, filtrelenmiş toplam kayıt sayısıdır. `page` ve `limit` gönderilmezse tüm liste `total` ve `data` ile döner.
 
 ### `GET /vendors/:id`
-Tek bir mekanın detayını getirir. Bulunamazsa `404`.
-
+Tek bir mekanın detayını getirir. Bulunamazsa `404`, id sayı değilse `400` döner.
 ---
 
 ## 2. Tasks (Hizmet Talepleri)
@@ -134,11 +140,12 @@ Tüm talepleri listeler.
 ```json
 { "total": 1, "data": [ { "...talep nesnesi..." } ] }
 ```
-Geçersiz `status`, `priority`, `sort` veya `page/limit` için `400` döner.
-### `GET /tasks/search?keyword=`
-Müşteri adı, mekan adı, durum veya önceliğe göre arama yapar (büyük/küçük harf duyarsız). `page` ve `limit` da desteklenir. `keyword` yoksa `400` döner.
-**Örnek:** `GET /tasks/search?keyword=arya` → `200 OK`, `{ "total": 1, "data": [ ... ] }`
+Geçersiz `status`, `priority`, `sort`, `order` veya `page/limit` için `400` döner.
 
+### `GET /tasks/search?keyword=`
+Müşteri adı, mekan adı, durum veya önceliğe göre arama yapar (büyük/küçük harf duyarsız). `page` ve `limit` da desteklenir. `keyword` gönderilmezse `400` döner.
+
+**Örnek:** `GET /tasks/search?keyword=arya`
 
 **200 OK**
 ```json
@@ -174,7 +181,7 @@ Durum değiştiğinde `statusHistory`'ye yeni kayıt eklenir ve `updatedAt` yeni
 **Hatalar**
 | Kod | Durum |
 |-----|-------|
-| 400 | Hiç güncellenebilir alan yok, değiştirilemez alan gönderildi, geçersiz değer |
+| 400 | Hiç güncellenebilir alan yok, değiştirilemez alan (`id`, `vendorId`, `customerName`, `createdAt`) gönderildi, geçersiz değer |
 | 404 | Talep bulunamadı |
 | 422 | Bütçe 1000 TL altı veya davetli sayısı kapasiteyi aşıyor |
 | 409 | `Anlaşıldı` yapılmak istenen talep için mekan o tarihte başka bir talepte zaten kesinleşmiş |

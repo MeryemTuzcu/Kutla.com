@@ -2,11 +2,7 @@ const { tasks, vendors, STATUSES, PRIORITIES, MIN_BUDGET, getNextTaskId } = requ
 const { sendError } = require('../utils/respond');
 const { sameText } = require('../utils/text');
 const { paginate } = require('../utils/paginate');
-
-const parseId = (value) => {
-    const id = Number(value);
-    return Number.isInteger(id) ? id : null;
-};
+const { parseId } = require('../utils/parse');
 
 const badRequest = (res, message) => sendError(res, 400, "Bad Request", message);
 const notFound = (res, message) => sendError(res, 404, "Not Found", message);
@@ -31,6 +27,9 @@ const getAllTasks = (req, res) => {
         if (id === null) return badRequest(res, "vendorId tam sayı olmalıdır.");
         result = result.filter((t) => t.vendorId === id);
     }
+    if (order !== undefined && !['asc', 'desc'].includes(order)) {
+        return badRequest(res, "Geçersiz order. Geçerli değerler: asc, desc.");
+    }
 
     if (sort !== undefined) {
         const SORTABLE = ['id', 'createdAt', 'eventDate', 'budget', 'guestCount'];
@@ -51,9 +50,9 @@ const searchTasks = (req, res) => {
     }
 
     const k = keyword.toLocaleLowerCase('tr-TR');
+    const vendorNames = new Map(vendors.map((v) => [v.id, v.name]));
     const result = tasks.filter((t) => {
-        const vendor = vendors.find((v) => v.id === t.vendorId);
-        return [t.customerName, t.status, t.priority, vendor ? vendor.name : '']
+        return [t.customerName, t.status, t.priority, vendorNames.get(t.vendorId) || '']
             .some((field) => String(field).toLocaleLowerCase('tr-TR').includes(k));
     });
 
