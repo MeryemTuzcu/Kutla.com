@@ -87,6 +87,7 @@ Mekanları listeler. Filtreleme ve sayfalama destekler.
 
 ### `GET /vendors/:id`
 Tek bir mekanın detayını getirir. Bulunamazsa `404`, id sayı değilse `400` döner.
+
 ---
 
 ## 2. Tasks (Hizmet Talepleri)
@@ -115,7 +116,7 @@ Yeni hizmet talebi oluşturur. Durum otomatik olarak `Fiyat Bekleniyor` olur.
 **Hatalar** (kontrol sırasıyla)
 | Kod | Durum |
 |-----|-------|
-| 400 | Eksik alan, yanlış tür, geçmiş/geçersiz tarih, geçersiz `priority` |
+| 400 | Eksik alan, yanlış tür, 100 karakterden uzun isim, geçmiş/geçersiz tarih, geçersiz `priority` |
 | 422 | `budget` 1000 TL'nin altında |
 | 404 | `vendorId` ile mekan bulunamadı |
 | 422 | `guestCount` mekan kapasitesini aşıyor |

@@ -13,6 +13,7 @@ Node.js Backend Programlama Eğitimi bitirme projesi kapsamında geliştirilmiş
 
 ## ⚙️ Kurulum ve Çalıştırma
 > **Gereksinim:** Node.js 18 veya üzeri (Express 5 için gereklidir).
+
 1. **Repoyu klonlayın:**
    ```bash
    git clone https://github.com/MeryemTuzcu/Kutla.com.git
@@ -34,7 +35,6 @@ Node.js Backend Programlama Eğitimi bitirme projesi kapsamında geliştirilmiş
 
 4. **Test edin:** Tarayıcıdan veya Postman'den `http://localhost:3000/` adresine istek atın.
 
-5. **Otomatik testler (isteğe bağlı):** `npm test` komutu 30 testi çalıştırır.
 
 > Not: Veriler bellekte tutulduğu için sunucu yeniden başlatıldığında başlangıç verilerine dönülür.
 
@@ -48,8 +48,6 @@ src/
 ├── middlewares/           # logger.js, validator.js
 ├── data/database.js       # Bellek içi veri ve sabitler
 └── utils/                 # Sayfalama, hata yanıtı, metin karşılaştırma, id/sayı çözümleme
-test/
-└── api.test.js            # Otomatik API testleri (npm test)
 docs/                      # Proje tanıtım PDF'i, Postman test PDF'i, logger kanıtı
 ```
 
