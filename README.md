@@ -35,7 +35,6 @@ Node.js Backend Programlama Eğitimi bitirme projesi kapsamında geliştirilmiş
 
 4. **Test edin:** Tarayıcıdan veya Postman'den `http://localhost:3000/` adresine istek atın.
 
-
 > Not: Veriler bellekte tutulduğu için sunucu yeniden başlatıldığında başlangıç verilerine dönülür.
 
 ## 📁 Proje Yapısı
@@ -76,6 +75,7 @@ docs/                      # Proje tanıtım PDF'i, Postman test PDF'i, logger k
 * **Durum geçmişi:** Her talepte durumun ne zaman değiştiği `statusHistory` alanında tutulur.
 * **Dayanıklılık:** 10 KB gövde sınırı (`413`), isim uzunluk sınırı, değiştirilemez alanların açıkça reddi, `X-Powered-By` başlığı kapalı.
 * **Global error handler:** Beklenmeyen hatalarda `500 Internal Server Error`.
+
 ---
 ## 📚 Teslim Dokümanları
 
@@ -83,6 +83,7 @@ docs/                      # Proje tanıtım PDF'i, Postman test PDF'i, logger k
 |---------|-------|
 | Proje Tanıtım Dokümanı | [docs/KutlaCom.pdf](./docs/KutlaCom.pdf) |
 | API Dokümantasyonu | [API_DOCS.md](./API_DOCS.md) |
+| Veri Modeli | [API_DOCS.md → Genel Bilgiler](./API_DOCS.md) |
 | Postman Test Ekran Görüntüleri | [docs/postman/PostmanTestleri.pdf](./docs/postman/PostmanTestleri.pdf) |
 | Logger Kanıtı | [docs/logger.png](./docs/logger.png) |
 
